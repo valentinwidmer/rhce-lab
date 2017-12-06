@@ -1,0 +1,49 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "RedHat_64",
+    "iso_url": "http://mirror.switch.ch/ftp/mirror/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1708.iso",
+    "iso_checksum": "ec7500d4b006702af6af023b1f8f1b890b6c7ee54400bb98cef968b883cd6546",
+    "iso_checksum_type": "sha256",
+    "boot_wait": "5s",
+    "boot_command": [
+      "<tab>text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg<enter><wait>"
+    ],
+    "disk_size": "8192",
+    "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+    "http_directory": "http",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "20m",
+    "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+    "vboxmanage": [
+      ["modifyvm", "{{.Name}}", "--memory", "512"],
+      ["modifyvm", "{{.Name}}", "--cpus", "1"]
+    ]
+
+  }],
+
+  "provisioners": [
+		{
+    "type": "shell",
+    "scripts": [
+      "scripts/base.sh",
+      "scripts/vagrant.sh",
+      "scripts/virtualbox.sh",
+      "scripts/cleanup.sh"
+    ],
+    "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'"
+  }],
+
+	"post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "override": {
+        "virtualbox": {
+          "output": "build/centos7.box"
+        }
+      }
+    }
+]
+}
