@@ -1,11 +1,11 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "unibe/centos7_rhce"
+  config.vm.box = "unibe/rhce-lab"
 
   config.vm.define "router" do |router|
   	router.vm.provision "shell", path: "scripts/router.sh"
 	router.vm.hostname = "router"
 	router.vm.network "private_network", ip: "192.168.0.2"
-	router.vm.network "private_network", ip: "192.168.1.2" 
+	router.vm.network "private_network", ip: "192.168.2.2" 
   end
 
   config.vm.define "server" do |server|
@@ -23,20 +23,20 @@ Vagrant.configure("2") do |config|
   config.vm.define "client02" do |client02|
   	client02.vm.provision "shell", path: "scripts/route_1.sh"
 	client02.vm.hostname = "client02"
-	client02.vm.network "private_network", ip: "192.168.1.10"
+	client02.vm.network "private_network", ip: "192.168.2.10"
   end
 
   config.vm.define "client03" do |client03|
 	client03.vm.provision "shell", path: "scripts/route_1.sh"
 	client03.vm.hostname = "client03"
-	client03.vm.network "private_network", ip: "192.168.1.11"
-	client03.vm.network "private_network", ip: "192.168.1.12"
+	client03.vm.network "private_network", ip: "192.168.2.11"
+	client03.vm.network "private_network", ip: "192.168.2.12"
   end
 	
   config.vm.define "client04" do |client04|
 	client04.vm.provision "shell", path: "scripts/route_1.sh"
 	client04.vm.hostname = "client04"
-	client04.vm.network "private_network", ip: "192.168.1.13", auto_config: false
+	client04.vm.network "private_network", ip: "192.168.2.13", auto_config: false
   end
 
 end

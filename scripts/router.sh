@@ -13,5 +13,7 @@ sysctl -p /etc/sysctl.d/ip_forwarding.conf
 #firewall-cmd --add-masquerade --zone=internal --permanent
 #firewall-cmd --reload
 
+firewall-cmd --set-default-zone=trusted
 
-sed -i '2 a nameserver 192.168.0.3' /etc/resolv.conf
+sed -i '2 a search example.com' /etc/resolv.conf
+sed -i '3 a nameserver 192.168.0.3' /etc/resolv.conf
