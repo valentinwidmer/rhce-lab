@@ -1,18 +1,29 @@
-# rhce-lab
+rhce-lab
+========
 
 This repo contains a lab, which can be used for practice the rhce exam.
 
-## Getting started
+Prerequisites
+-------------
 
-### Prerequisites
+The following software need to be installed on your machine:
 
-1. Packer need to be installed for building the Vagrant box [Download Packer from offical website](https://www.packer.io/downloads.html)
-2. Vagrant need to be installed for building the lab [Download Vagrant from offical website](https://www.vagrantup.com/downloads.html)
-3. For launching the machines you need also VirtualBox [Download VirtualBox from offical website](https://www.virtualbox.org/wiki/Downloads)
+##### 1. Install Packer to build the base box
 
-### Directory structure
+[Download for Packer for your OS](https://www.packer.io/downloads.html)
 
-The followng desribes the folder and document structure.
+##### 2. Install Vagrant to launch your lab
+
+[Download Vagrant for your OS](https://www.vagrantup.com/downloads.html)
+
+##### 3. Download VirtualBox to launch your machines
+
+[Download VirtualBox for your OS](https://www.virtualbox.org/wiki/Downloads)
+
+Directory structure
+-------------------
+
+The repo has the following structure:
 
 ```
 rhce-lab/
@@ -38,18 +49,24 @@ rhce-lab/
 
 ```
 
-### Setup lab
+Installation
+------------
 
-First you have to build a Vagrant box. Open a terminal and navigate into the folder packer. There you execute the following command.
+First clone the repository:
 
-`packer build centos7.json`
+      git clone https://github.com/supercoast/rhce-lab
+      cd rhce-lab
 
-After completion you should find a file called 'centos7.box' inside the 'build directory'.
+To setup the lab, there are two steps required:
 
-Then you have to import the Vagrant box with the following command.
+##### 1. Build a base box using Packer
 
-`vagrant box add unibe/centos7 build/centos7.box`
+      packer build packer/centos7.json
 
-Finally you can get out of the packer directory and run the lab with the following command.
+##### 2. Import the Vagrant box
 
-`vagrant up`
+      vagrant box add unibe/centos7 build/centos7.box
+
+Finally you can optionally make adjustments in the Vagrant file or just launch the lab with preconfigured options:
+
+      vagrant up
